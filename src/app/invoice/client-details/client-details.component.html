@@ -1,15 +1,20 @@
-<div class="flex-col gap-2 justify-center items-start">
-  <div id="client-name">
-    <label for="clientName">Client Name:</label><br>
-    <select id="clientName" name="clientName" class="input-field header-info" required>
-      <option value="">Select client name</option>
-      <option value="yummy">Yummy Bakery and Sweets</option>
-      <option value="technozone">Techno Zone</option>
-    </select>
+<div class="header-fields-group-container">
+  <div id="client-name" class="label-details-container">
+    <p class="header-label">Client Name: </p>
+    <mat-form-field>
+      <mat-label>Client Name</mat-label>
+      <mat-select required>
+        @for (client of clients; track client) {
+        <mat-option [value]="client.value">{{client.viewValue}}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
   </div>
-  <div id="billing-period">
-    <label for="billingPeriod">Billing Period:</label><br>
-    <input type="text" id="billingPeriod" name="billingPeriod" class="input-field header-info"
-      placeholder="from date - to date" required>
+  <div id="billing-period" class="label-details-container">
+    <label class="header-label" for="billingPeriod">Billing Period:</label><br>
+    <mat-form-field>
+      <mat-label>Billing Period</mat-label>
+      <input matInput type="text" id="billingPeriod" name="billingPeriod" class="input-field header-info" required>
+    </mat-form-field>
   </div>
 </div>

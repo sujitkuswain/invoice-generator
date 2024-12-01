@@ -1,1 +1,41 @@
-<p>service-list works!</p>
+<section id="service-list">
+  <table mat-table [dataSource]="rows()" class="mat-elevation-z8 rounded-lg shadow-xl">
+    <!-- Service Column -->
+    <ng-container matColumnDef="service">
+      <th mat-header-cell *matHeaderCellDef> Service </th>
+      <td mat-cell *matCellDef="let row">
+        <input matInput placeholder="Service" [(ngModel)]="row.service" />
+      </td>
+    </ng-container>
+
+    <!-- Price Column -->
+    <ng-container matColumnDef="price">
+      <th mat-header-cell *matHeaderCellDef> Price </th>
+      <td mat-cell *matCellDef="let row">
+        <input matInput type="number" placeholder="Price" [(ngModel)]="row.price" />
+      </td>
+    </ng-container>
+
+    <!-- Discount Column -->
+    <ng-container matColumnDef="discount">
+      <th mat-header-cell *matHeaderCellDef> Discount </th>
+      <td mat-cell *matCellDef="let row">
+        <input matInput type="number" placeholder="Discount" [(ngModel)]="row.discount" />
+      </td>
+    </ng-container>
+
+    <!-- Actions Column -->
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef> Actions </th>
+      <td mat-cell *matCellDef="let row; let i = index">
+        <button mat-icon-button color="warn" (click)="deleteRow(i)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <!-- Table Header and Row -->
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</section>

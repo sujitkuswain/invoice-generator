@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-invoice-details',
@@ -9,21 +9,32 @@ import { Component } from '@angular/core';
   styleUrl: './invoice-details.component.css',
   providers: [DatePipe],
 })
-export class InvoiceDetailsComponent {
+export class InvoiceDetailsComponent implements OnInit {
   todayDate: Date = new Date();
 
-  formattedDateForDate: string;
-  formattedDateForInvoice: string;
+  formattedDateForDisplay: string = '';
+  formattedDateForInvoice: string = '';
+  invoiceNumber: string = '';
 
-  constructor(private datePipe: DatePipe) {
-    this.formattedDateForDate = this.datePipe.transform(
-      this.todayDate,
-      'MMMM d, yyyy'
-    )!;
+  constructor(private datePipe: DatePipe) {}
 
+  generateInvoiceNumber() {
     this.formattedDateForInvoice = this.datePipe.transform(
       this.todayDate,
-      'dd MM yyyy hh mm ss'
+      'ddMMyyyyhhmmss'
     )!;
+    this.invoiceNumber = 'MS-' + this.formattedDateForInvoice;
+  }
+
+  formatDateForDisplay() {
+    this.formattedDateForDisplay = this.datePipe.transform(
+      this.todayDate,
+      'dd-MM-yyyy'
+    )!;
+  }
+
+  ngOnInit(): void {
+    this.generateInvoiceNumber();
+    this.formatDateForDisplay();
   }
 }

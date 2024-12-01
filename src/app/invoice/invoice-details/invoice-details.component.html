@@ -1,8 +1,10 @@
-<div class="flex flex-col items-start">
-  <p>
-    Invoice #: MS-<span id="invoice-nummber">{{ formattedDateForInvoice }}</span>
-  </p>
-  <p>
-    Date: <span id="invoice-date"> {{ formattedDateForDate }}</span>
-  </p>
+<div class="header-fields-group-container">
+  <div class="label-details-container">
+    <p class="header-label">Invoice #:</p>
+    <p id="invoice-number"> {{ invoiceNumber }}</p>
+  </div>
+  <div class="label-details-container">
+    <p class="header-label">Date:</p>
+    <p id="invoice-date"> {{ formattedDateForDisplay }}</p>
+  </div>
 </div>

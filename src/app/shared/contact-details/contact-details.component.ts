@@ -5,8 +5,9 @@ import { Component } from '@angular/core';
   standalone: true,
   imports: [],
   templateUrl: './contact-details.component.html',
-  styleUrl: './contact-details.component.css'
+  styleUrl: './contact-details.component.css',
 })
 export class ContactDetailsComponent {
-
+  websiteUrl = 'mosahar.com';
+  contact = 'mosahar.boudh@gmail.com';
 }
