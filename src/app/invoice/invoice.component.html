@@ -2,7 +2,93 @@
   <div class="flex justify-center items-center md:p-16 p-2 rounded-xl shadow-lg bg-white">
     <div class="flex flex-col space-y-4 justify-center items-center">
       <div class="uppercase text-xl md:text-4xl">Invoice Generator</div>
-      <app-main-form></app-main-form>
+
+      <!-- Form Container -->
+      <form [formGroup]="invoiceForm" (ngSubmit)="onSubmit()">
+        <!-- Header -->
+        <section id="header" class="border-2 rounded-md p-8">
+          <div class="flex flex-col items-center space-y-16">
+            <!-- Logo -->
+            <div id="logo" class="flex justify-center">
+              <app-logo></app-logo>
+            </div>
+
+            <!-- Client Details -->
+            <div id="client-details" class="flex justify-between w-full space-x-8">
+
+              <!-- Client Name -->
+              <div id="client-name" class="flex items-center space-x-4">
+                <p class="header-label">Client Name:</p>
+                <mat-form-field class="modern-input" required>
+                  <mat-label>Client Name</mat-label>
+                  <mat-select formControlName="clientName" required>
+                    @for (client of clients; track client) {
+                    <mat-option [value]="client.value">{{client.viewValue}}</mat-option>
+                    }
+                  </mat-select>
+                </mat-form-field>
+              </div>
+
+              <!-- Billing Period -->
+              <div id="billing-period" class="flex items-center space-x-4">
+                <p class="header-label">Billing Period:</p>
+                <mat-form-field class="modern-input" required>
+                  <mat-label>Billing Period</mat-label>
+                  <input matInput formControlName="billingPeriod" type="text" required />
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Service List -->
+        <section id="service-list">
+          <table mat-table [dataSource]="rows" class="mat-elevation-z8 rounded-lg shadow-xl">
+            <ng-container matColumnDef="service">
+              <th mat-header-cell *matHeaderCellDef> Service </th>
+              <td mat-cell *matCellDef="let row">
+                <input matInput placeholder="Service" formControlName="service" />
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="price">
+              <th mat-header-cell *matHeaderCellDef> Price </th>
+              <td mat-cell *matCellDef="let row">
+                <input matInput type="number" placeholder="Price" formControlName="price" />
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="discount">
+              <th mat-header-cell *matHeaderCellDef> Discount </th>
+              <td mat-cell *matCellDef="let row">
+                <input matInput type="number" placeholder="Discount" formControlName="discount" />
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="actions">
+              <th mat-header-cell *matHeaderCellDef> Actions </th>
+              <td mat-cell *matCellDef="let row; let i = index">
+                <button mat-icon-button color="warn" (click)="deleteRow(i)">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+        </section>
+
+        <!-- Action Buttons -->
+        <section id="action-buttons" class="flex justify-center gap-8 mt-16">
+          <button mat-raised-button color="primary" (click)="addNewService()" [disabled]="rows.length === 0">Add
+            Service</button>
+          <button mat-raised-button color="primary" type="submit"
+            [disabled]="!invoiceForm.valid || rows.length === 0">Download Snapshot</button>
+          <button mat-raised-button color="accent" type="submit"
+            [disabled]="!invoiceForm.valid || rows.length === 0">Download Custom Version</button>
+        </section>
+      </form>
     </div>
   </div>
 </section>

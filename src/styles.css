@@ -1,4 +1,4 @@
-/* You can add global styles to this file, and also import other style files */
+/* Global Tailwind Imports */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -13,17 +13,67 @@ body {
 }
 
 .header-label {
-  @apply w-24 font-bold md:font-normal text-xs uppercase inline-block;
+  @apply w-24 font-bold md:font-normal text-xs md:text-base uppercase inline-block;
 }
 
 .label-details-container {
-  @apply flex md:space-x-4 space-x-2 justify-center items-center;
+  @apply flex items-center;
 }
 
 .header-fields-group-container {
-  @apply flex flex-col space-y-0 md:space-y-2 items-start p-6;
+  @apply flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-4;
 }
 
 .website-url {
   @apply text-blue-500 hover:underline cursor-pointer;
+}
+
+#client-details {
+  @apply flex justify-between items-center w-full;
+}
+
+#client-name,
+#billing-period {
+  @apply flex items-center space-x-4;
+}
+
+/* Add some space between client name and billing period */
+#client-details {
+  @apply space-x-8;
+}
+
+/* Remove Vertical Divider in Mat-Form-Field */
+.mat-form-field.no-border .mat-form-field-wrapper {
+  border: none;
+}
+
+.mat-form-field.no-border .mat-form-field-flex {
+  padding: 0;
+}
+
+.mat-form-field.no-border .mat-label {
+  margin-left: 0;
+}
+
+/* Modern Input Style */
+.modern-input .mat-form-field-label {
+  @apply text-sm text-gray-600;
+}
+
+.modern-input .mat-form-field-underline {
+  @apply border-b-2 border-gray-300;
+}
+
+.mat-form-field-appearance-fill .mat-form-field-flex {
+  padding: 0.5rem 0.75rem;
+  border-radius: 8px;
+}
+
+.mat-select-panel {
+  border-radius: 8px;
+}
+
+.mat-form-field {
+  @apply w-full;
+  /* Adjust width if needed */
 }

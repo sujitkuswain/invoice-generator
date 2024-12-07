@@ -1,3 +1,4 @@
+import { InvoiceDetails } from './invoice/invoice.model';
 import { Injectable } from '@angular/core';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
@@ -7,6 +8,16 @@ import autoTable from 'jspdf-autotable';
   providedIn: 'root',
 })
 export class InvoiceService {
+  private InvoiceDetails: InvoiceDetails = {
+    clientName: '',
+    billingPeriod: '',
+    service: [],
+  };
+
+  setInvoiceDetails(details: InvoiceDetails) {
+    this.InvoiceDetails = details;
+  }
+
   // Generate custom PDF layout
   generateCustomPDF() {
     const pdf = new jsPDF();
@@ -17,8 +28,8 @@ export class InvoiceService {
 
     // Adding client details
     pdf.setFontSize(12);
-    pdf.text('Client Name: Yummy Bakery and Sweets', 10, 20);
-    pdf.text('Billing Period: 01-Nov-2024 to 30-Nov-2024', 10, 30);
+    pdf.text('Client Name: ' + this.InvoiceDetails.clientName, 10, 20);
+    pdf.text('Billing Period: ' + this.InvoiceDetails.billingPeriod, 10, 30);
 
     // Adding service table
     autoTable(pdf, {
