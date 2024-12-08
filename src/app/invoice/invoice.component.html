@@ -1,66 +1,63 @@
 <section id="main-card">
-  <div class="flex justify-center items-center md:p-16 p-2 rounded-xl shadow-lg bg-white">
-    <div class="flex flex-col space-y-4 justify-center items-center">
-      <div class="uppercase text-xl md:text-4xl">Invoice Generator</div>
+  <div class="flex justify-center items-center p-4 md:p-16 rounded-xl shadow-lg bg-white">
+    <div class="flex flex-col space-y-6 items-center">
+      <h1 class="uppercase text-xl md:text-4xl">Invoice Generator</h1>
 
-      <!-- Form Container -->
+      <!-- Form -->
       <form [formGroup]="invoiceForm" (ngSubmit)="onSubmit()">
-        <!-- Header -->
-        <section id="header" class="border-2 rounded-md p-8">
-          <div class="flex flex-col items-center space-y-16">
-            <!-- Logo -->
-            <div id="logo" class="flex justify-center">
-              <app-logo></app-logo>
+        <!-- Header Section -->
+        <section id="header" class="border rounded-md p-8 space-y-8">
+          <!-- Logo -->
+          <div class="flex justify-center">
+            <app-logo></app-logo>
+          </div>
+
+          <!-- Client Details -->
+          <div id="client-details" class="flex flex-col md:flex-row justify-between w-full gap-4">
+            <!-- Client Name -->
+            <div class="flex items-center gap-4 w-full">
+              <p class="font-bold text-sm md:text-base uppercase w-24">Client Name:</p>
+              <mat-form-field class="w-full" appearance="fill">
+                <mat-label>Client Name</mat-label>
+                <mat-select formControlName="clientName" required>
+                  @for (client of clients; track client) {
+                  <mat-option [value]="client.value">{{ client.viewValue }}</mat-option>
+                  }
+                </mat-select>
+              </mat-form-field>
             </div>
 
-            <!-- Client Details -->
-            <div id="client-details" class="flex justify-between w-full space-x-8">
-
-              <!-- Client Name -->
-              <div id="client-name" class="flex items-center space-x-4">
-                <p class="header-label">Client Name:</p>
-                <mat-form-field class="modern-input" required>
-                  <mat-label>Client Name</mat-label>
-                  <mat-select formControlName="clientName" required>
-                    @for (client of clients; track client) {
-                    <mat-option [value]="client.value">{{client.viewValue}}</mat-option>
-                    }
-                  </mat-select>
-                </mat-form-field>
-              </div>
-
-              <!-- Billing Period -->
-              <div id="billing-period" class="flex items-center space-x-4">
-                <p class="header-label">Billing Period:</p>
-                <mat-form-field class="modern-input" required>
-                  <mat-label>Billing Period</mat-label>
-                  <input matInput formControlName="billingPeriod" type="text" required />
-                </mat-form-field>
-              </div>
+            <!-- Billing Period -->
+            <div class="flex items-center gap-4 w-full">
+              <p class="font-bold text-sm md:text-base uppercase w-24">Billing Period:</p>
+              <mat-form-field class="w-full" appearance="fill">
+                <mat-label>Billing Period</mat-label>
+                <input matInput type="text" formControlName="billingPeriod" required />
+              </mat-form-field>
             </div>
           </div>
         </section>
 
         <!-- Service List -->
-        <section id="service-list">
-          <table mat-table [dataSource]="rows" class="mat-elevation-z8 rounded-lg shadow-xl">
+        <section id="service-list" formArrayName="services">
+          <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 rounded-lg shadow-lg">
             <ng-container matColumnDef="service">
               <th mat-header-cell *matHeaderCellDef> Service </th>
-              <td mat-cell *matCellDef="let row">
+              <td mat-cell *matCellDef="let row; let i = index" [formGroupName]="i">
                 <input matInput placeholder="Service" formControlName="service" />
               </td>
             </ng-container>
 
             <ng-container matColumnDef="price">
               <th mat-header-cell *matHeaderCellDef> Price </th>
-              <td mat-cell *matCellDef="let row">
+              <td mat-cell *matCellDef="let row; let i = index" [formGroupName]="i">
                 <input matInput type="number" placeholder="Price" formControlName="price" />
               </td>
             </ng-container>
 
             <ng-container matColumnDef="discount">
-              <th mat-header-cell *matHeaderCellDef> Discount </th>
-              <td mat-cell *matCellDef="let row">
+              <th mat-header-cell *matHeaderCellDef> Discount % </th>
+              <td mat-cell *matCellDef="let row; let i = index" [formGroupName]="i">
                 <input matInput type="number" placeholder="Discount" formControlName="discount" />
               </td>
             </ng-container>
@@ -80,14 +77,10 @@
         </section>
 
         <!-- Action Buttons -->
-        <section id="action-buttons" class="flex justify-center gap-8 mt-16">
-          <button mat-raised-button color="primary" (click)="addNewService()" [disabled]="rows.length === 0">Add
-            Service</button>
-          <button mat-raised-button color="primary" type="submit"
-            [disabled]="!invoiceForm.valid || rows.length === 0">Download Snapshot</button>
-          <button mat-raised-button color="accent" type="submit"
-            [disabled]="!invoiceForm.valid || rows.length === 0">Download Custom Version</button>
-        </section>
+        <div class="flex justify-center gap-4 mt-8">
+          <button mat-raised-button color="primary" type="button" (click)="addNewService()">Add Service</button>
+          <button mat-raised-button color="accent" type="submit" [disabled]="!invoiceForm.valid">Download</button>
+        </div>
       </form>
     </div>
   </div>
