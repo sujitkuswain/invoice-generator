@@ -85,7 +85,7 @@
           <!-- Total Section -->
           <div class="flex justify-end items-center mt-4 pr-4">
             <p class="text-lg font-bold">
-              Total: ₹{{ total$ | async }}
+              Total: ₹{{ invoiceForm.get('total')?.value }}
             </p>
           </div>
         </section>

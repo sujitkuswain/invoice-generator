@@ -80,7 +80,7 @@ export class InvoiceService {
         service.service || '',
         service.price || '0',
         `${service.discount || '0'}%`,
-        this.calculateFinalPrice(service.price, service.discount).toFixed(2),
+        `${service.finalPrice || '0'}%`,
       ]),
       startY: 70,
     });
@@ -88,17 +88,10 @@ export class InvoiceService {
     // Calculate the Y position of the table footer (the total)
     const finalY = pdf.lastAutoTable.finalY || 90; // Adjust based on table's end position
 
-    // Calculate and show total
-    const total = formData.services.reduce(
-      (acc: number, service: { price: number; discount: number }) =>
-        acc + this.calculateFinalPrice(service.price, service.discount),
-      0
-    );
-
     // Align the Total text to the right edge of the page, same as last column
     pdf.text(
-      `Total: ${total.toFixed(2)}`,
-      this.getXPosition(pdf, `Total: ${total.toFixed(2)}`, 'R'),
+      `Total: ${formData.total}`,
+      this.getXPosition(pdf, `Total: ${formData.total}`, 'R') - 5,
       finalY + 10
     );
 

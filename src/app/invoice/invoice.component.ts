@@ -1,4 +1,4 @@
-import { DatePipe, CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import {
   AbstractControl,
@@ -21,7 +21,6 @@ import { InvoiceService } from '../invoice.service';
 import { LogoComponent } from '../shared/logo/logo.component';
 import { Client } from './client.model';
 import { ClientsService } from './clients.service';
-import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-invoice',
@@ -44,8 +43,6 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class InvoiceComponent implements OnInit {
   invoiceForm: FormGroup; // Initialize form group here
-
-  total$ = new BehaviorSubject<number>(0); // Observable for the total
 
   clients: Client[] = this.clientsService.clients;
 
@@ -72,6 +69,7 @@ export class InvoiceComponent implements OnInit {
         [],
         [Validators.required, this.minOneRowValidator()]
       ),
+      total: new FormControl({ value: 0, disabled: true }),
     });
 
     // Initialize total when form data changes
@@ -83,7 +81,8 @@ export class InvoiceComponent implements OnInit {
       const finalPrice = group.get('finalPrice')?.value || 0;
       return sum + parseFloat(finalPrice);
     }, 0);
-    this.total$.next(total);
+
+    this.invoiceForm.get('total')?.setValue(total, { emitEvent: false });
   }
 
   minOneRowValidator(): ValidatorFn {
@@ -106,11 +105,7 @@ export class InvoiceComponent implements OnInit {
     const newRow = new FormGroup({
       service: new FormControl('', Validators.required),
       price: new FormControl('', [Validators.required, Validators.min(0)]),
-      discount: new FormControl('', [
-        Validators.required,
-        Validators.min(0),
-        Validators.max(100),
-      ]),
+      discount: new FormControl('', [Validators.min(0), Validators.max(100)]),
       finalPrice: new FormControl({ value: '', disabled: true }),
     });
 
@@ -136,8 +131,13 @@ export class InvoiceComponent implements OnInit {
 
   onSubmit() {
     if (this.invoiceForm.valid) {
+      // Enable the 'total' field to include it in the form data
+      this.invoiceForm.get('total')?.enable();
       const formData = this.invoiceForm.value;
+      console.log(formData);
       this.invoiceService.generateCustomPDF(formData);
+      // Enable the 'total' field to include it in the form data
+      this.invoiceForm.get('total')?.disable();
     } else {
       console.log('Form is invalid!');
     }
@@ -167,7 +167,4 @@ export class InvoiceComponent implements OnInit {
     this.updateTotal(); // Update total after recalculating the price
     this.updateDataSource();
   }
-}
-function minOneRowValidator(): import('@angular/forms').ValidatorFn {
-  throw new Error('Function not implemented.');
 }
