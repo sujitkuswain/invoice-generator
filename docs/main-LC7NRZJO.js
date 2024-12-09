@@ -41086,7 +41086,7 @@ var n1 = (() => {
           [1, "flex", "space-x-4", "items-center"],
           [
             "src",
-            "../../assets/images/logo.png",
+            "./assets/images/logo.png",
             "alt",
             "MoSahar Logo",
             1,
@@ -41140,7 +41140,7 @@ var Z1 = (() => {
       let n = new vp(),
         r = n.internal.pageSize.width,
         o = new Image();
-      o.src = "../assets/images/logo.png";
+      o.src = "./assets/images/logo.png";
       let a = 10,
         l = 10,
         d = 10,
