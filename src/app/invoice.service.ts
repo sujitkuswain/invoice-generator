@@ -79,8 +79,8 @@ export class InvoiceService {
       body: formData.services.map((service: any) => [
         service.service || '',
         service.price || '0',
-        `${service.discount || '0'}%`,
-        `${service.finalPrice || '0'}%`,
+        handleDiscount(service.discount),
+        `${service.finalPrice || '0'}`,
       ]),
       startY: 70,
     });
@@ -105,7 +105,7 @@ export class InvoiceService {
   // Helper function to calculate the final price after discount
   calculateFinalPrice(price: number, discount: number): number {
     const discountAmount = (price * discount) / 100;
-    return price - discountAmount;
+    return +(price - discountAmount).toFixed(2);
   }
 
   generateInvoiceNumber() {
@@ -143,4 +143,15 @@ export class InvoiceService {
     private datePipe: DatePipe,
     private clientsService: ClientsService
   ) {}
+}
+
+function handleDiscount(discount: any): string {
+  if (discount === 100) {
+    return 'FREE';
+  } else if (discount === null || discount === 0) {
+    return '';
+  } else if (typeof discount === 'number') {
+    return `${discount}%`;
+  }
+  return '';
 }

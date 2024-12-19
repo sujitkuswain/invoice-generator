@@ -131,13 +131,19 @@ export class InvoiceComponent implements OnInit {
 
   onSubmit() {
     if (this.invoiceForm.valid) {
-      // Enable the 'total' field to include it in the form data
+      // Enable the 'total' and 'finalPrice' field to include it in the form data
       this.invoiceForm.get('total')?.enable();
+      this.services.controls.forEach((control) => {
+        control.get('finalPrice')?.enable();
+      });
+      console.log(this.invoiceForm);
       const formData = this.invoiceForm.value;
-      console.log(formData);
       this.invoiceService.generateCustomPDF(formData);
-      // Enable the 'total' field to include it in the form data
+      // Enable the 'total' and 'finalPrice' field to include it in the form data
       this.invoiceForm.get('total')?.disable();
+      this.services.controls.forEach((control) => {
+        control.get('finalPrice')?.disable();
+      });
     } else {
       console.log('Form is invalid!');
     }
