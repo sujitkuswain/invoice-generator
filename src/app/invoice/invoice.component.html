@@ -15,9 +15,8 @@
           <!-- Client Details -->
           <div id="client-details" class="flex flex-col md:flex-row justify-between w-full gap-4">
             <!-- Client Name -->
-            <div class="flex items-center gap-4 w-full">
-              <p class="font-bold text-sm md:text-base uppercase w-24">Client Name:</p>
-              <mat-form-field class="w-full" appearance="fill">
+            <div class="flex items-center gap-4 w-full justify-center">
+              <mat-form-field class="max-w-md md:w-full" appearance="fill">
                 <mat-label>Client Name</mat-label>
                 <mat-select formControlName="clientName" required>
                   @for (client of clients; track client) {
@@ -28,9 +27,8 @@
             </div>
 
             <!-- Billing Period -->
-            <div class="flex items-center gap-4 w-full">
-              <p class="font-bold text-sm md:text-base uppercase w-24">Billing Period:</p>
-              <mat-form-field class="w-full" appearance="fill">
+            <div class="flex items-center gap-4 w-full justify-center">
+              <mat-form-field class="max-w-md md:w-full" appearance="fill">
                 <mat-label>Billing Period</mat-label>
                 <input matInput type="text" formControlName="billingPeriod" required />
               </mat-form-field>
