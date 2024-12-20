@@ -6,7 +6,9 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "deployPackage": "ng build --output-path docs",
+    "deploy": "ngh --dir=docs"
   },
   "private": true,
   "dependencies": {
