@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
-import { ClientsService } from './invoice/clients.service';
+import { ClientsService } from './clients.service';
 
 @Injectable({
   providedIn: 'root',
@@ -25,7 +25,7 @@ export class InvoiceService {
 
     // Header section with logo and title
     const logo = new Image();
-    logo.src = '../assets/images/logo.png';
+    logo.src = 'assets/images/logo.png';
 
     // Logo
     const logoWidth = 10;

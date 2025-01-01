@@ -17,10 +17,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { InvoiceService } from '../invoice.service';
-import { LogoComponent } from '../shared/logo/logo.component';
-import { Client } from './client.model';
-import { ClientsService } from './clients.service';
+import { Client } from '../../models/client.model';
+import { ClientsService } from '../../services/clients.service';
+import { InvoiceService } from '../../services/invoice.service';
+import { LogoComponent } from '../logo/logo.component';
 
 @Component({
   selector: 'app-invoice',

@@ -7,7 +7,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "deployPackage": "ng build --output-path docs",
+    "deployPackage": "ng build --configuration production --output-path docs",
     "deploy": "ngh --dir=docs"
   },
   "private": true,
