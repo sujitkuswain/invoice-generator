@@ -79,7 +79,7 @@ export class InvoiceService {
       body: formData.services.map((service: any) => [
         service.service || '',
         service.price || '0',
-        handleDiscount(service.discount),
+        this.handleDiscount(service.discount),
         `${service.finalPrice || '0'}`,
       ]),
       startY: 70,
@@ -143,15 +143,15 @@ export class InvoiceService {
     private datePipe: DatePipe,
     private clientsService: ClientsService
   ) {}
-}
 
-function handleDiscount(discount: any): string {
-  if (discount === 100) {
-    return 'FREE';
-  } else if (discount === null || discount === 0) {
+  handleDiscount(discount: any): string {
+    if (discount === 100) {
+      return 'FREE';
+    } else if (discount === null || discount === 0) {
+      return '';
+    } else if (typeof discount === 'number') {
+      return `${discount}%`;
+    }
     return '';
-  } else if (typeof discount === 'number') {
-    return `${discount}%`;
   }
-  return '';
 }
