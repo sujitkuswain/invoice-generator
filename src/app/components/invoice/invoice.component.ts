@@ -1,5 +1,5 @@
 import { CommonModule, DatePipe } from '@angular/common';
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 import {
   AbstractControl,
   FormArray,
@@ -21,6 +21,7 @@ import { Client } from '../../models/client.model';
 import { ClientsService } from '../../services/clients.service';
 import { InvoiceService } from '../../services/invoice.service';
 import { LogoComponent } from '../logo/logo.component';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-invoice',
@@ -54,6 +55,12 @@ export class InvoiceComponent implements OnInit {
     'actions',
   ];
   dataSource = new MatTableDataSource<any>([]); // Use MatTableDataSource
+
+  translateService = inject(TranslateService);
+
+  getTranslation(key: string): string {
+    return this.translateService.instant(key);
+  }
 
   constructor(
     private datePipe: DatePipe,

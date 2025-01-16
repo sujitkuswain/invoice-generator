@@ -17,7 +17,7 @@
             <!-- Client Name -->
             <div class="flex items-center gap-4 w-full justify-center">
               <mat-form-field class="max-w-md md:w-full" appearance="fill">
-                <mat-label>Client Name</mat-label>
+                <mat-label>Client Name{{getTranslation('hello')}}</mat-label>
                 <mat-select formControlName="clientName" required>
                   @for (client of clients; track client) {
                   <mat-option [value]="client.value">{{ client.viewValue }}</mat-option>
