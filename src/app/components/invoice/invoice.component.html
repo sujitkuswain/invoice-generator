@@ -1,7 +1,7 @@
 <section id="main-card" class="">
   <div class="flex justify-center items-center p-4 md:p-16 rounded-xl shadow-lg bg-white">
-    <div class="flex flex-col space-y-6 items-center">
-      <h1 class="uppercase text-xl md:text-4xl">Invoice Generator</h1>
+    <div class="flex flex-col space-y-6 items-center relative">
+      <h1 class="uppercase text-xl md:text-4xl">{{'CORE.HEADER' | translate}}</h1>
 
       <!-- Form -->
       <form [formGroup]="invoiceForm" (ngSubmit)="onSubmit()">
@@ -17,7 +17,7 @@
             <!-- Client Name -->
             <div class="flex items-center gap-4 w-full justify-center">
               <mat-form-field class="max-w-md md:w-full" appearance="fill">
-                <mat-label>Client Name</mat-label>
+                <mat-label>{{'FORM.CLIENT NAME' | translate}}</mat-label>
                 <mat-select formControlName="clientName" required>
                   @for (client of clients; track client) {
                   <mat-option [value]="client.value">{{ client.viewValue }}</mat-option>
@@ -29,7 +29,7 @@
             <!-- Billing Period -->
             <div class="flex items-center gap-4 w-full justify-center">
               <mat-form-field class="max-w-md md:w-full" appearance="fill">
-                <mat-label>Billing Period</mat-label>
+                <mat-label>{{'FORM.BILLING PERIOD' | translate}}</mat-label>
                 <input matInput type="text" formControlName="billingPeriod" required />
               </mat-form-field>
             </div>
@@ -43,40 +43,46 @@
               class="mat-elevation-z8 rounded-lg shadow-lg table-auto w-full border border-gray-300">
               <!-- Service Column -->
               <ng-container matColumnDef="service">
-                <th mat-header-cell *matHeaderCellDef class="p-2 text-xs md:text-sm">Service</th>
+                <th mat-header-cell *matHeaderCellDef class="p-2 text-xs md:text-sm">{{'FORM.SERVICE' | translate}}</th>
                 <td mat-cell *matCellDef="let row; let i = index" [formGroupName]="i" class="p-2 text-xs md:text-sm">
-                  <input matInput placeholder="Service" formControlName="service" class="w-full" />
+                  <input matInput [placeholder]="'FORM.SERVICE' | translate" formControlName="service" class="w-full" />
                 </td>
               </ng-container>
 
               <!-- Price Column -->
               <ng-container matColumnDef="price">
-                <th mat-header-cell *matHeaderCellDef class="p-2 text-xs md:text-sm">Price</th>
+                <th mat-header-cell *matHeaderCellDef class="p-2 text-xs md:text-sm">{{'FORM.PRICE' | translate}}</th>
                 <td mat-cell *matCellDef="let row; let i = index" [formGroupName]="i" class="p-2 text-xs md:text-sm">
-                  <input matInput type="number" placeholder="Price" formControlName="price" class="w-full" />
+                  <input matInput type="number" [placeholder]="'FORM.PRICE' | translate" formControlName="price"
+                    class="w-full" />
                 </td>
               </ng-container>
 
               <!-- Discount Column -->
               <ng-container matColumnDef="discount">
-                <th mat-header-cell *matHeaderCellDef class="p-2 text-xs md:text-sm">Discount %</th>
+                <th mat-header-cell *matHeaderCellDef class="p-2 text-xs md:text-sm">{{'FORM.DISCOUNT PERCENT' |
+                  translate}}
+                </th>
                 <td mat-cell *matCellDef="let row; let i = index" [formGroupName]="i" class="p-2 text-xs md:text-sm">
-                  <input matInput type="number" placeholder="Discount" formControlName="discount" class="w-full" />
+                  <input matInput type="number" [placeholder]="'FORM.DISCOUNT PERCENT' | translate"
+                    formControlName="discount" class="w-full" />
                 </td>
               </ng-container>
 
               <!-- Final Price Column -->
               <ng-container matColumnDef="finalPrice">
-                <th mat-header-cell *matHeaderCellDef class="p-2 text-xs md:text-sm">Final Price</th>
+                <th mat-header-cell *matHeaderCellDef class="p-2 text-xs md:text-sm">{{'FORM.FINAL PRICE' | translate}}
+                </th>
                 <td mat-cell *matCellDef="let row; let i = index" [formGroupName]="i" class="p-2 text-xs md:text-sm">
-                  <input matInput type="number" placeholder="Final Price" formControlName="finalPrice" class="w-full"
-                    readonly />
+                  <input matInput type="number" [placeholder]="'FORM.FINAL PRICE' | translate"
+                    formControlName="finalPrice" class="w-full" readonly />
                 </td>
               </ng-container>
 
               <!-- Actions Column -->
               <ng-container matColumnDef="actions">
-                <th mat-header-cell *matHeaderCellDef class="p-2 text-xs md:text-sm w-20">Actions</th>
+                <th mat-header-cell *matHeaderCellDef class="p-2 text-xs md:text-sm w-20">{{'FORM.ACTIONS' | translate}}
+                </th>
                 <td mat-cell *matCellDef="let row; let i = index" class="p-2 text-xs md:text-sm w-20">
                   <button mat-icon-button color="warn" (click)="deleteRow(i)">
                     <mat-icon>delete</mat-icon>
@@ -93,17 +99,24 @@
           <!-- Total Section -->
           <div class="flex justify-end items-center mt-4 pr-4">
             <p class="text-sm md:text-lg font-bold">
-              Total: ₹{{ invoiceForm.get('total')?.value }}
+              {{'FORM.TOTAL' | translate}}: ₹{{ invoiceForm.get('total')?.value }}
             </p>
           </div>
         </section>
 
         <!-- Action Buttons -->
         <div class="flex justify-center gap-4 mt-8">
-          <button mat-raised-button color="primary" type="button" (click)="addNewService()">Add Service</button>
-          <button mat-raised-button color="accent" type="submit" [disabled]="!invoiceForm.valid">Download</button>
+          <button mat-raised-button color="primary" type="button" (click)="addNewService()">{{'FORM.ADD SERVICE' |
+            translate}}</button>
+          <button mat-raised-button color="accent" type="submit" [disabled]="!invoiceForm.valid">{{'FORM.DOWNLOAD' |
+            translate}}</button>
         </div>
       </form>
+      <div class="flex gap-2 p-2 w-full mt-4 absolute top-0 right-0">
+        <button mat-button color="accent" mat-raised-button type="button"
+          (click)="switchLanguage('en')">English</button>
+        <button mat-button color="primary" mat-raised-button type="button" (click)="switchLanguage('or')">Odia</button>
+      </div>
     </div>
   </div>
 </section>

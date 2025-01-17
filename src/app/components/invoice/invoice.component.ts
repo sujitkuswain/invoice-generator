@@ -1,5 +1,5 @@
 import { CommonModule, DatePipe } from '@angular/common';
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 import {
   AbstractControl,
   FormArray,
@@ -17,6 +17,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Client } from '../../models/client.model';
 import { ClientsService } from '../../services/clients.service';
 import { InvoiceService } from '../../services/invoice.service';
@@ -36,6 +37,7 @@ import { LogoComponent } from '../logo/logo.component';
     MatButtonModule,
     LogoComponent,
     CommonModule,
+    TranslateModule,
   ],
   providers: [DatePipe],
   templateUrl: './invoice.component.html',
@@ -54,6 +56,8 @@ export class InvoiceComponent implements OnInit {
     'actions',
   ];
   dataSource = new MatTableDataSource<any>([]); // Use MatTableDataSource
+
+  translateService = inject(TranslateService);
 
   constructor(
     private datePipe: DatePipe,
@@ -74,6 +78,8 @@ export class InvoiceComponent implements OnInit {
 
     // Initialize total when form data changes
     this.services.valueChanges.subscribe(() => this.updateTotal());
+
+    this.translationService.setDefaultLang('en');
   }
 
   updateTotal() {
@@ -172,5 +178,11 @@ export class InvoiceComponent implements OnInit {
 
     this.updateTotal(); // Update total after recalculating the price
     this.updateDataSource();
+  }
+
+  translationService = inject(TranslateService);
+
+  switchLanguage(language: string) {
+    this.translationService.use(language);
   }
 }

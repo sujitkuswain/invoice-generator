@@ -1,0 +1,19 @@
+{
+  "CORE": {
+    "COMPANY NAME": "moSahar",
+    "HEADER": "Invoice Generator"
+  },
+  "FORM": {
+    "CLIENT NAME": "Client Name",
+    "BILLING PERIOD": "Billing Period",
+    "SERVICE": "Service",
+    "PRICE": "Price",
+    "DISCOUNT PERCENT": "Discount %",
+    "FINAL PRICE": "Final Price",
+    "ACTIONS": "Actions",
+    "DELETE": "Delete",
+    "ADD SERVICE": "Add Service",
+    "DOWNLOAD": "Download",
+    "TOTAL": "Total"
+  }
+}
