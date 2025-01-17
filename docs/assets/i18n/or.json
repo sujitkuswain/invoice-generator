@@ -1,0 +1,19 @@
+{
+  "CORE": {
+    "COMPANY NAME": "ମୋ ସହର",
+    "HEADER": "ଚାଲାନ ଜନରେଟର"
+  },
+  "FORM": {
+    "CLIENT NAME": "କ୍ଲାୟଣ୍ଟ ନାମ",
+    "BILLING PERIOD": "ବିଲିଂ ସମୟ",
+    "SERVICE": "ସେବା",
+    "PRICE": "ମୂଲ୍ୟ",
+    "DISCOUNT PERCENT": "ଛାଡ଼ %",
+    "FINAL PRICE": "ଚୂଡ଼ାନ୍ତ ମୂଲ୍ୟ",
+    "ACTIONS": "କାର୍ଯ୍ୟ",
+    "DELETE": "ମିଛା କରନ୍ତୁ",
+    "ADD SERVICE": "ନୂତନ ସେବା ଯୋଗ କରନ୍ତୁ",
+    "DOWNLOAD": "ଡାଉନଲୋଡ୍",
+    "TOTAL": "ମୋଟ"
+  }
+}
