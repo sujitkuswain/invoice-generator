@@ -22,6 +22,7 @@ import { Client } from '../../models/client.model';
 import { ClientsService } from '../../services/clients.service';
 import { InvoiceService } from '../../services/invoice.service';
 import { LogoComponent } from '../logo/logo.component';
+import { ThemeService } from '../../services/theme.service';
 
 @Component({
   selector: 'app-invoice',
@@ -44,6 +45,8 @@ import { LogoComponent } from '../logo/logo.component';
   styleUrls: ['./invoice.component.css'],
 })
 export class InvoiceComponent implements OnInit {
+  themeService = inject(ThemeService);
+
   invoiceForm: FormGroup; // Initialize form group here
 
   clients: Client[] = this.clientsService.clients;
@@ -80,6 +83,13 @@ export class InvoiceComponent implements OnInit {
     this.services.valueChanges.subscribe(() => this.updateTotal());
 
     this.translationService.setDefaultLang('en');
+  }
+
+  toggleTheme() {
+    console.log('Toggling theme');
+    console.log(`before: ${this.themeService.currentTheme}`);
+    this.themeService.toggleTheme();
+    console.log(`after: ${this.themeService.currentTheme}`);
   }
 
   updateTotal() {
