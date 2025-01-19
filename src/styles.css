@@ -5,37 +5,123 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --primary-color: #000; /* black */
+  --background-color: #fff; /* white */
+  --text-color: #000; /* black */
+}
+
+.light-theme {
+  --primary-color: #000; /* black */
+  --background-color: #fff; /* white */
+  --text-color: #000; /* black */
+}
+
+.dark-theme {
+  --primary-color: #fff; /* white */
+  --background-color: #333; /* dark gray */
+  --text-color: #fff; /* white */
+}
+
 html,
 body {
   height: 100%;
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  background-color: var(--background-color); /* Apply background color */
+  color: var(--text-color); /* Apply text color */
 }
 
 body {
   margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
-.mat-form-field {
-  @apply w-full;
+.main-container {
+  @apply flex justify-center bg-slate-300 px-0 py-4 md:py-16 min-h-screen;
 }
 
-.mat-form-field-appearance-fill .mat-form-field-flex {
-  padding: 0.5rem 0.75rem;
-  border-radius: 0.5rem;
+.header-title {
+  @apply uppercase text-xl md:text-4xl;
 }
 
-.mat-select-panel {
-  border-radius: 0.5rem;
+.theme-toggle-btn {
+  @apply absolute top-0 right-0 py-2 px-4;
 }
 
-#header {
-  @apply space-y-8;
+.header-section {
+  @apply border rounded-md p-8 space-y-8;
 }
 
-#client-details {
+.logo-container {
+  @apply flex justify-center;
+}
+
+.client-details {
   @apply flex flex-col md:flex-row justify-between w-full gap-4;
 }
 
-.scroll_container {
+.client-name,
+.billing-period {
+  @apply flex items-center gap-4 w-full justify-center;
+}
+
+.client-form-field {
+  @apply max-w-md md:w-full;
+}
+
+.scroll-container {
   @apply w-full overflow-x-auto overflow-auto;
+}
+
+.service-table-container {
+  @apply w-full overflow-x-auto;
+}
+
+.service-table {
+  @apply shadow-lg rounded-lg table-auto w-full border border-gray-300;
+}
+
+.service-header,
+.actions-header {
+  @apply p-2 text-xs md:text-sm;
+}
+
+.service-cell,
+.actions-cell {
+  @apply p-2 text-xs md:text-sm;
+}
+
+.total-section {
+  @apply flex justify-end items-center mt-4 pr-4;
+}
+
+.total-text {
+  @apply text-sm md:text-lg font-bold;
+}
+
+.action-buttons {
+  @apply flex justify-center gap-4 mt-8;
+}
+
+.language-switch {
+  @apply flex gap-2 w-full mt-4 absolute top-0 left-0;
+}
+
+button.mat-raised-button {
+  @apply p-2;
+}
+
+button.mat-button {
+  @apply p-2;
+}
+
+button.mat-icon-button {
+  @apply text-xs md:text-sm;
+}
+
+.form-container {
+  background-color: var(--background-color);
+  color: var(--text-color);
+  border-radius: 1rem; /* Matches rounded-xl */
+  @apply flex justify-center items-center p-4 md:p-16 rounded-xl shadow-lg;
 }
