@@ -25,10 +25,30 @@ $dark-theme: mat.define-dark-theme(
   )
 );
 
-.dark-theme {
-  @include mat.all-component-themes($dark-theme);
-}
-
 .light-theme {
   @include mat.all-component-themes($theme);
+
+  .mat-mdc-input-element {
+    background-color: #fff;
+    color: #000;
+  }
+
+  .mat-mdc-form-field {
+    background-color: #fff;
+    color: #000;
+  }
+}
+
+.dark-theme {
+  @include mat.all-component-themes($dark-theme);
+
+  .mat-mdc-input-element {
+    background-color: #333;
+    color: #fff;
+  }
+
+  .mat-mdc-form-field {
+    background-color: #333;
+    color: #fff;
+  }
 }

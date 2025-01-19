@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { ThemeService } from './services/theme.service';
 import { CommonModule } from '@angular/common';
@@ -10,12 +10,16 @@ import { CommonModule } from '@angular/common';
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'invoice-generator';
 
   themeService = inject(ThemeService);
 
   toggleTheme(): void {
     this.themeService.toggleTheme();
+  }
+
+  ngOnInit(): void {
+    document.body.classList.add(`${this.themeService.currentTheme}-theme`);
   }
 }

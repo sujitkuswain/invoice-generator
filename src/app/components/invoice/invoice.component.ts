@@ -23,6 +23,7 @@ import { ClientsService } from '../../services/clients.service';
 import { InvoiceService } from '../../services/invoice.service';
 import { LogoComponent } from '../logo/logo.component';
 import { ThemeService } from '../../services/theme.service';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-invoice',
@@ -39,6 +40,7 @@ import { ThemeService } from '../../services/theme.service';
     LogoComponent,
     CommonModule,
     TranslateModule,
+    MatTooltipModule,
   ],
   providers: [DatePipe],
   templateUrl: './invoice.component.html',
