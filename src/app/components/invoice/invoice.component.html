@@ -1,30 +1,16 @@
-<section id="main-card" class="main-card">
+<section id="main-card" class="main-card mt-8">
   <div class="form-container">
     <div class="flex flex-col space-y-6 items-center relative">
       <h1 class="header-title">{{'CORE.HEADER' | translate}}</h1>
-
-      <!-- Language Switch -->
-      <div class="language-switch">
-        <button mat-button color="accent" mat-raised-button type="button" (click)="switchLanguage('en')">English
-        </button>
-        <button mat-button color="primary" mat-raised-button type="button" (click)="switchLanguage('or')">Odia
-        </button>
-      </div>
-
-      <!-- light and dark theme changes -->
-      <button class="theme-toggle-btn" (click)="toggleTheme()">
-        <i class="fas fa-moon" *ngIf="themeService.theme$() === 'light'" matTooltip="Toggle dark mode"></i>
-        <i class="fas fa-sun" *ngIf="themeService.theme$() === 'dark'" matTooltip="Toggle light mode"></i>
-      </button>
 
       <!-- Form -->
       <form [formGroup]="invoiceForm" (ngSubmit)="onSubmit()">
         <!-- Header Section -->
         <section id="header" class="header-section">
-          <!-- Logo -->
+          <!-- Logo
           <div class="logo-container">
             <app-logo></app-logo>
-          </div>
+          </div> -->
 
           <!-- Client Details -->
           <div id="client-details" class="client-details">
