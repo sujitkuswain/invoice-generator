@@ -1,0 +1,22 @@
+<header class="header fixed top-0 left-0 w-full shadow-md z-50 px-4 py-2">
+  <div class="flex justify-between items-center gap-2">
+    <!-- logo -->
+    <app-logo></app-logo>
+
+    <!-- Language Switch -->
+    <div class="language-switch">
+      <button matTooltip="Change language to English" *ngIf="translationService.currentLang === 'or'" mat-button
+        color="primary" mat-raised-button type="button" class="lang-btn" (click)="switchLanguage('en')">English
+      </button>
+      <button matTooltip="Change language to Oriya" *ngIf="translationService.currentLang === 'en'" mat-button
+        color="primary" mat-raised-button type="button" class="lang-btn" (click)="switchLanguage('or')">Oriya
+      </button>
+    </div>
+
+    <!-- light and dark theme changes -->
+    <button class="theme-toggle-btn" (click)="toggleTheme()">
+      <i class="fas fa-moon" *ngIf="themeService.theme$() === 'light'" matTooltip="Toggle dark mode"></i>
+      <i class="fas fa-sun" *ngIf="themeService.theme$() === 'dark'" matTooltip="Toggle light mode"></i>
+    </button>
+  </div>
+</header>

@@ -1,5 +1,5 @@
 import { CommonModule, DatePipe } from '@angular/common';
-import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import {
   AbstractControl,
   FormArray,
@@ -17,13 +17,12 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { TranslateModule } from '@ngx-translate/core';
 import { Client } from '../../models/client.model';
 import { ClientsService } from '../../services/clients.service';
 import { InvoiceService } from '../../services/invoice.service';
 import { LogoComponent } from '../logo/logo.component';
-import { ThemeService } from '../../services/theme.service';
-import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-invoice',
@@ -47,8 +46,6 @@ import { MatTooltipModule } from '@angular/material/tooltip';
   styleUrls: ['./invoice.component.css'],
 })
 export class InvoiceComponent implements OnInit {
-  themeService = inject(ThemeService);
-
   invoiceForm: FormGroup; // Initialize form group here
 
   clients: Client[] = this.clientsService.clients;
@@ -61,8 +58,6 @@ export class InvoiceComponent implements OnInit {
     'actions',
   ];
   dataSource = new MatTableDataSource<any>([]); // Use MatTableDataSource
-
-  translateService = inject(TranslateService);
 
   constructor(
     private datePipe: DatePipe,
@@ -83,15 +78,6 @@ export class InvoiceComponent implements OnInit {
 
     // Initialize total when form data changes
     this.services.valueChanges.subscribe(() => this.updateTotal());
-
-    this.translationService.setDefaultLang('en');
-  }
-
-  toggleTheme() {
-    console.log('Toggling theme');
-    console.log(`before: ${this.themeService.currentTheme}`);
-    this.themeService.toggleTheme();
-    console.log(`after: ${this.themeService.currentTheme}`);
   }
 
   updateTotal() {
@@ -190,11 +176,5 @@ export class InvoiceComponent implements OnInit {
 
     this.updateTotal(); // Update total after recalculating the price
     this.updateDataSource();
-  }
-
-  translationService = inject(TranslateService);
-
-  switchLanguage(language: string) {
-    this.translationService.use(language);
   }
 }
