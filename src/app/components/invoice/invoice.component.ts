@@ -81,11 +81,13 @@ export class InvoiceComponent implements OnInit {
   }
 
   updateTotal() {
-    const total = this.services.controls.reduce((sum, group) => {
+    let total = this.services.controls.reduce((sum, group) => {
       const finalPrice = group.get('finalPrice')?.value || 0;
       return sum + parseFloat(finalPrice);
     }, 0);
 
+    //set total to 2 decimal
+    total = Math.round(total * 100) / 100;
     this.invoiceForm.get('total')?.setValue(total, { emitEvent: false });
   }
 
