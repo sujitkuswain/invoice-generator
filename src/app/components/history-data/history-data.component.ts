@@ -5,12 +5,15 @@ import { ColDef, GridOptions } from 'ag-grid-community';
 import {
   addDoc,
   collection,
+  doc,
   Firestore,
   getDocs,
+  updateDoc,
 } from '@angular/fire/firestore';
 import { MatButton } from '@angular/material/button';
 
 interface Invoice {
+  id?: string;
   clientName: string;
   billingPeriod: string;
   total: number;
@@ -26,37 +29,6 @@ interface Invoice {
 })
 export class HistoryDataComponent implements OnInit {
   fireStore = inject(Firestore);
-
-  // Save data to Firestore (if needed)
-  save() {
-    const testCollection = collection(this.fireStore, 'testCollection');
-    addDoc(testCollection, { message: 'Hello Firebase!' })
-      .then(() => console.log('Data added!'))
-      .catch((error) => console.error('Error adding data:', error));
-  }
-
-  // Get data from Firestore and populate it into rowData for ag-Grid
-  async get() {
-    try {
-      const querySnapshot = await getDocs(
-        collection(this.fireStore, 'invoices')
-      );
-
-      // Clear previous rowData
-      this.rowData = [];
-
-      querySnapshot.forEach((doc) => {
-        // Mapping Firestore document data into rowData format
-        const data = doc.data() as Invoice;
-        this.rowData.push(data);
-      });
-
-      console.log('Data fetched:', this.rowData);
-    } catch (error) {
-      console.error('Error getting documents: ', error);
-    }
-  }
-
   gridOptions: GridOptions = {};
 
   // Initial empty rowData, will be populated after fetching Firestore data
@@ -64,13 +36,59 @@ export class HistoryDataComponent implements OnInit {
 
   // Column definitions for ag-Grid
   colDefs: ColDef[] = [
-    { field: 'Client Name', flex: 1 },
-    { field: 'Billing Period', flex: 1 },
-    { field: 'Total', flex: 1 },
-    { field: 'Setteled', flex: 1 },
+    { field: 'clientName', headerName: 'Client Name', flex: 1 },
+    { field: 'billingPeriod', headerName: 'Billing Period', flex: 1 },
+    { field: 'total', headerName: 'Total', flex: 1 },
+    { field: 'setteled', headerName: 'Setteled', flex: 1, editable: true },
   ];
 
   ngOnInit() {
     this.get();
+  }
+
+  async get() {
+    try {
+      const querySnapshot = await getDocs(
+        collection(this.fireStore, 'invoices')
+      );
+
+      this.rowData = [];
+
+      querySnapshot.forEach((doc) => {
+        const data = doc.data() as Invoice;
+        this.rowData.push({ id: doc.id, ...data });
+      });
+    } catch (error) {
+      console.error('Error getting documents: ', error);
+    }
+  }
+
+  /**
+   * Updates existing invoices in the Firestore database based on the current state of `rowData`.
+   * Iterates through each invoice, and if it has an ID, updates the corresponding document in the
+   * 'invoices' collection. Logs a message for each updated invoice and a final message once all
+   * changes are saved. Catches and logs errors if the update process fails.
+   */
+
+  async save() {
+    try {
+      console.log('Saving changes...', this.rowData);
+      for (const invoice of this.rowData) {
+        console.log('Saving invoice:', invoice.id);
+        if (invoice.id) {
+          const docRef = doc(this.fireStore, 'invoices', invoice.id);
+          await updateDoc(docRef, {
+            clientName: invoice.clientName,
+            billingPeriod: invoice.billingPeriod,
+            total: invoice.total,
+            setteled: invoice.setteled,
+          });
+          console.log('Invoice updated:', invoice.id);
+        }
+      }
+      console.log('All changes saved.');
+    } catch (error) {
+      console.error('Error updating invoices:', error);
+    }
   }
 }
