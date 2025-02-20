@@ -28,6 +28,7 @@
     "@ngx-translate/http-loader": "^16.0.1",
     "ag-grid-angular": "^31.2.1",
     "ag-grid-community": "^31.2.1",
+    "firebase": "^11.3.1",
     "html2canvas": "^1.4.1",
     "jspdf": "^2.5.2",
     "jspdf-autotable": "^3.8.4",

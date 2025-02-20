@@ -5,6 +5,8 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { ThemeService } from '../../services/theme.service';
 import { CommonModule } from '@angular/common';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -20,6 +22,13 @@ import { MatTooltipModule } from '@angular/material/tooltip';
   styleUrl: './header.component.css',
 })
 export class HeaderComponent {
+  authService = inject(AuthService);
+  router = inject(Router);
+
+  logout() {
+    this.authService.logout();
+    this.router.navigate(['/']);
+  }
   translationService = inject(TranslateService);
   themeService = inject(ThemeService);
 
@@ -37,5 +46,17 @@ export class HeaderComponent {
     console.log(`before: ${this.themeService.currentTheme}`);
     this.themeService.toggleTheme();
     console.log(`after: ${this.themeService.currentTheme}`);
+  }
+
+  login() {
+    this.authService.login('test@mail.com', '123456').subscribe({
+      next: () => {
+        console.log('Logged in');
+        this.router.navigate(['/invoice']);
+      },
+      error: (e) => {
+        console.error(e);
+      },
+    });
   }
 }
