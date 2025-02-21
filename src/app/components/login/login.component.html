@@ -1,1 +1,32 @@
-<h1 class="header-title mt-5">Welcome to Invoice Generator</h1>
+<mat-card class="login-card mt-4">
+  <mat-card-header>
+    <mat-card-title>Welcome to Invoice Generator
+    </mat-card-title>
+  </mat-card-header>
+  <mat-card-content class="p-3">
+    <form [formGroup]="loginForm" (ngSubmit)="login()">
+      <div class="login-form flex flex-col gap-2 justify-center items-center">
+        <div class="flex gap-2">
+          <mat-form-field>
+            <mat-label>Enter your email</mat-label>
+            <input matInput placeholder="eMail Address" [formControl]="email" required />
+            @if (email.invalid) {
+            <mat-error>{{errorMessage()}}</mat-error>
+            }
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Enter your Password</mat-label>
+            <input matInput placeholder="Password" [formControl]="password" required />
+            @if (password.invalid) {
+            <mat-error>{{errorMessage()}}</mat-error>
+            }
+          </mat-form-field>
+        </div>
+        <div class="flex flex-col gap-1 justify-center">
+          <button mat-raised-button color="primary" type="submit">Login</button>
+          <mat-error>{{errorMessage()}}</mat-error>
+        </div>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>

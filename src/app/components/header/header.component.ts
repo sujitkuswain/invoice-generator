@@ -49,14 +49,6 @@ export class HeaderComponent {
   }
 
   login() {
-    this.authService.login('test@mail.com', '123456').subscribe({
-      next: () => {
-        console.log('Logged in');
-        this.router.navigate(['/invoice']);
-      },
-      error: (e) => {
-        console.error(e);
-      },
-    });
+    this.router.navigate(['/login']);
   }
 }
