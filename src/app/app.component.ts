@@ -1,5 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
 import { ThemeService } from './services/theme.service';
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from './components/header/header.component';
@@ -20,6 +20,8 @@ export class AppComponent implements OnInit {
 
   authService = inject(AuthService);
 
+  router = inject(Router);
+
   toggleTheme(): void {
     this.themeService.toggleTheme();
   }
@@ -36,5 +38,9 @@ export class AppComponent implements OnInit {
         this.authService.currUserSig.set(null);
       }
     });
+
+    if (localStorage.getItem('user') != null) {
+      this.router.navigate(['/invoice']);
+    }
   }
 }

@@ -20,11 +20,11 @@
       </button>
       <!-- Login logout -->
       <div class="login-logout-switch">
-        <button matTooltip="Login" *ngIf="authService.currUserSig()===null" mat-button color="primary" mat-raised-button
-          type="button" class="lang-btn" (click)="login()">Login
+        <button matTooltip="Login" *ngIf="authService.currUserSig()===null" type="button"
+          (click)="login()"><mat-icon>login</mat-icon>
         </button>
-        <button matTooltip="Logout" *ngIf="authService.currUserSig() !==null" mat-button color="primary"
-          mat-raised-button type="button" class="lang-btn" (click)="logout()">Logout
+        <button matTooltip="Logout" *ngIf="authService.currUserSig() !==null" type="button"
+          (click)="logout()"><mat-icon>logout</mat-icon>
         </button>
       </div>
     </div>

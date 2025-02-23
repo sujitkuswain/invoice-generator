@@ -23,7 +23,18 @@ export class AuthService {
       this.fireAuth,
       email,
       password
-    ).then(() => {});
+    ).then((res) => {
+      res.user?.getIdToken().then((token) => {
+        localStorage.setItem('userToken', token);
+      });
+
+      localStorage.setItem('user', JSON.stringify(res.user));
+
+      this.currUserSig.set({
+        email: res.user?.email!,
+        userName: res.user?.displayName!,
+      });
+    });
 
     return from(promise);
   }

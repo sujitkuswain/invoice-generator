@@ -16,7 +16,7 @@
           </mat-form-field>
           <mat-form-field>
             <mat-label>Enter your Password</mat-label>
-            <input matInput placeholder="Password" [formControl]="password" required />
+            <input matInput placeholder="Password" type="password" [formControl]="password" required />
             @if (password.invalid) {
             <mat-error>{{errorMessage()}}</mat-error>
             }

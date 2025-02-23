@@ -12,7 +12,7 @@ export class authGuard implements CanActivate {
 
   async canActivate(): Promise<boolean> {
     const user = this.auth.currentUser;
-    if (user) {
+    if (user || localStorage.getItem('user') != null) {
       return true;
     } else {
       this.router.navigate(['/']); // Redirect if not logged in

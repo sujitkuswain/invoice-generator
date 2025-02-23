@@ -7,6 +7,7 @@ import { CommonModule } from '@angular/common';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-header',
@@ -17,6 +18,7 @@ import { AuthService } from '../../services/auth.service';
     TranslateModule,
     CommonModule,
     MatTooltipModule,
+    MatIconModule,
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css',
@@ -27,6 +29,8 @@ export class HeaderComponent {
 
   logout() {
     this.authService.logout();
+    localStorage.removeItem('user');
+    localStorage.removeItem('userToken');
     this.router.navigate(['/']);
   }
   translationService = inject(TranslateService);

@@ -91,7 +91,10 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (this.authService.currUserSig() != null) {
+    if (
+      this.authService.currUserSig() != null ||
+      localStorage.getItem('user') != null
+    ) {
       this.router.navigate(['/invoice']);
     }
   }
