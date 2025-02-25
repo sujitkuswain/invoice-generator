@@ -23,6 +23,7 @@ import { Client } from '../../models/client.model';
 import { ClientsService } from '../../services/clients.service';
 import { InvoiceService } from '../../services/invoice.service';
 import { LogoComponent } from '../logo/logo.component';
+import { HistoryDataComponent } from '../history-data/history-data.component';
 
 @Component({
   selector: 'app-invoice',
@@ -36,10 +37,10 @@ import { LogoComponent } from '../logo/logo.component';
     MatTableModule,
     MatIconModule,
     MatButtonModule,
-    LogoComponent,
     CommonModule,
     TranslateModule,
     MatTooltipModule,
+    HistoryDataComponent,
   ],
   providers: [DatePipe],
   templateUrl: './invoice.component.html',

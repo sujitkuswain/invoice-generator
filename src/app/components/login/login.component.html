@@ -1,0 +1,32 @@
+<mat-card class="login-card mt-16 p-8">
+  <mat-card-header>
+    <mat-card-title class="p-4">Welcome to Invoice Generator
+    </mat-card-title>
+  </mat-card-header>
+  <mat-card-content class="p-3">
+    <form [formGroup]="loginForm" (ngSubmit)="login()">
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 md:gap-4">
+        <mat-form-field>
+          <mat-label>Enter your email</mat-label>
+          <input class="mb-3" matInput placeholder="eMail Address" [formControl]="email" required />
+          @if (email.invalid) {
+          <mat-error>{{errorMessage()}}</mat-error>
+          }
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Enter your Password</mat-label>
+          <input class="mb-3" matInput placeholder="Password" type="password" [formControl]="password" required />
+          @if (password.invalid) {
+          <mat-error>{{errorMessage()}}</mat-error>
+          }
+        </mat-form-field>
+      </div>
+    </form>
+  </mat-card-content>
+  <mat-card-actions class="flex justify-center">
+    <div class="flex flex-col gap-1 justify-center">
+      <button mat-raised-button color="primary" type="submit" (click)="login()">Login</button>
+      <mat-error>{{errorMessage()}}</mat-error>
+    </div>
+  </mat-card-actions>
+</mat-card>

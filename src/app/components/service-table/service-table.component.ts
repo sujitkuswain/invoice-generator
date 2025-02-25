@@ -11,21 +11,35 @@ import { ColDef } from 'ag-grid-community';
 })
 export class ServiceTableComponent {
   rowData = [
-    { service: 'test', price: 'test', discount: 'test', finalPrice: 'test' },
+    {
+      service: 'test',
+      price: 'test',
+      discount: 'test',
+      finalPrice: 'test',
+      setteled: 'N',
+    },
   ];
 
   colDefs: ColDef[] = [
     {
       field: 'service',
+      flex: 1,
     },
     {
       field: 'price',
+      flex: 1,
     },
     {
       field: 'discount',
+      flex: 1,
     },
     {
       field: 'finalPrice',
+      flex: 1,
+    },
+    {
+      field: 'setteled',
+      flex: 1,
     },
   ];
 }

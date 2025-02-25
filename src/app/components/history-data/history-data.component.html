@@ -1,0 +1,17 @@
+<section class="flex justify-center items-center mx-auto my-10 p-4">
+  <mat-card appearance="outlined" class="w-full">
+    <mat-card-header class="mb-4">
+      <mat-card-title>Invoice History</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <!-- ag-Grid to display Firestore data -->
+      <ag-grid-angular [columnDefs]="colDefs" [rowData]="rowData" class="ag-theme-quartz" [gridOptions]="gridOptions"
+        style="height: 250px;">
+      </ag-grid-angular>
+      <div class="flex w-full justify-center gap-2 m-3">
+        <button mat-raised-button color="primary" (click)="save()">Save</button>
+        <button mat-raised-button color="primary" (click)="get()">Refresh</button>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</section>
