@@ -3,16 +3,14 @@
     <!-- logo -->
     <app-logo></app-logo>
 
-    <div class="flex items-center">
+    <div class="flex items-center justify-between">
       <!-- Language Switch -->
-      <div class="language-switch">
-        <button matTooltip="Change language to English" *ngIf="translationService.currentLang === 'or'" mat-button
-          color="primary" mat-raised-button type="button" class="lang-btn" (click)="switchLanguage('en')">English
-        </button>
-        <button matTooltip="Change language to Oriya" *ngIf="translationService.currentLang === 'en'" mat-button
-          color="primary" mat-raised-button type="button" class="lang-btn" (click)="switchLanguage('or')">Oriya
-        </button>
-      </div>
+      <button class="lang-btn" (click)="toggleLanguage()">
+        <i class="fas fa-globe" *ngIf="translationService.currentLang === 'or'"
+          matTooltip="Change language to English"></i>
+        <i class="fas fa-globe" *ngIf="translationService.currentLang === 'en'"
+          matTooltip="Change language to Oriya"></i>
+      </button>
       <!-- light and dark theme changes -->
       <button class="theme-toggle-btn" (click)="toggleTheme()">
         <i class="fas fa-moon" *ngIf="themeService.theme$() === 'light'" matTooltip="Toggle dark mode"></i>
@@ -20,11 +18,11 @@
       </button>
       <!-- Login logout -->
       <div class="login-logout-switch">
-        <button matTooltip="Login" *ngIf="authService.currUserSig()===null" type="button"
-          (click)="login()"><mat-icon>login</mat-icon>
+        <button matTooltip="Login" *ngIf="authService.currUserSig()===null" type="button" (click)="login()">
+          <i class="fas fa-sign-in-alt"></i>
         </button>
-        <button matTooltip="Logout" *ngIf="authService.currUserSig() !==null" type="button"
-          (click)="logout()"><mat-icon>logout</mat-icon>
+        <button matTooltip="Logout" *ngIf="authService.currUserSig() !==null" type="button" (click)="logout()">
+          <i class="fas fa-sign-out-alt"></i>
         </button>
       </div>
     </div>

@@ -45,6 +45,12 @@ export class HeaderComponent {
     this.translationService.use(language);
   }
 
+  toggleLanguage() {
+    this.translationService.use(
+      this.translationService.currentLang === 'en' ? 'or' : 'en'
+    );
+  }
+
   toggleTheme() {
     console.log('Toggling theme');
     console.log(`before: ${this.themeService.currentTheme}`);
