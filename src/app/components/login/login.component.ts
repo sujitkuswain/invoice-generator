@@ -71,7 +71,7 @@ export class LoginComponent implements OnInit {
       //'test@mail.com', '123456'
       next: () => {
         console.log('Logged in');
-        this.router.navigate(['/invoice']);
+        this.router.navigate(['/home']);
       },
       error: (e) => {
         console.error(e);
@@ -95,7 +95,7 @@ export class LoginComponent implements OnInit {
       this.authService.currUserSig() != null ||
       localStorage.getItem('user') != null
     ) {
-      this.router.navigate(['/invoice']);
+      this.router.navigate(['/home']);
     }
   }
 }

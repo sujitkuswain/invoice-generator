@@ -40,7 +40,7 @@ export class AppComponent implements OnInit {
     });
 
     if (localStorage.getItem('user') != null) {
-      this.router.navigate(['/invoice']);
+      this.router.navigate(['/home']);
     }
   }
 }
