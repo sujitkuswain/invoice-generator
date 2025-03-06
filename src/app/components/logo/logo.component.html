@@ -1,9 +1,9 @@
 <section id="logo-header">
-  <div class="flex space-x-4 items-center">
-    <img *ngIf="themeService.currentTheme === 'dark'" class="object-contain h-12 w-12 rounded-full"
+  <div class="flex space-x-1 lg:space-x-4 items-center">
+    <img *ngIf="themeService.currentTheme === 'dark'" class="object-contain h-8 w-12 lg:h-12 lg:w-12 rounded-full"
       src="assets/images/logo-dark.png" alt="MoSahar Logo">
-    <img *ngIf="themeService.currentTheme === 'light'" class="object-contain h-12 w-12 rounded-full"
+    <img *ngIf="themeService.currentTheme === 'light'" class="object-contain h-8 w-12 lg:h-12 lg:w-12 rounded-full"
       src="assets/images/logo.png" alt="MoSahar Logo">
-    <p class="m-0 p-0 font-semibold text-2xl inline-block">{{'CORE.COMPANY NAME' | translate}}</p>
+    <p class="m-0 p-0 text-lg font-semibold lg:text-2xl inline-block">{{'CORE.COMPANY NAME' | translate}}</p>
   </div>
 </section>

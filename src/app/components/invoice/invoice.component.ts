@@ -26,6 +26,7 @@ import { LogoComponent } from '../logo/logo.component';
 import { HistoryDataComponent } from '../history-data/history-data.component';
 import { Invoice } from '../../models/invoice.model';
 import { HistoryInvoiceService } from '../../services/history-invoice.service';
+import { MatCardModule } from '@angular/material/card';
 
 @Component({
   selector: 'app-invoice',
@@ -43,6 +44,7 @@ import { HistoryInvoiceService } from '../../services/history-invoice.service';
     TranslateModule,
     MatTooltipModule,
     HistoryDataComponent,
+    MatCardModule,
   ],
   providers: [DatePipe],
   templateUrl: './invoice.component.html',
