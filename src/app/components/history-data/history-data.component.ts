@@ -1,7 +1,13 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { AgGridAngular } from 'ag-grid-angular';
-import { ColDef, GridOptions } from 'ag-grid-community';
+import {
+  ColDef,
+  ColumnApi,
+  GridApi,
+  GridOptions,
+  GridReadyEvent,
+} from 'ag-grid-community';
 import {
   addDoc,
   collection,
@@ -26,7 +32,10 @@ import { HistoryInvoiceService } from '../../services/history-invoice.service';
 })
 export class HistoryDataComponent implements OnInit {
   fireStore = inject(Firestore);
-  gridOptions: GridOptions = {};
+  gridOptions: GridOptions | any = {
+    domLayout: 'autoHeight',
+    responsive: true,
+  };
   auth = inject(Auth);
   historyInvoiceService = inject(HistoryInvoiceService);
 
@@ -35,10 +44,21 @@ export class HistoryDataComponent implements OnInit {
 
   // Column definitions for ag-Grid
   colDefs: ColDef[] = [
-    { field: 'clientName', headerName: 'Client Name', flex: 1 },
-    { field: 'billingPeriod', headerName: 'Billing Period', flex: 1 },
-    { field: 'total', headerName: 'Total', flex: 1 },
-    { field: 'setteled', headerName: 'Setteled', flex: 1, editable: true },
+    { field: 'clientName', headerName: 'Client Name', minWidth: 200, flex: 1 },
+    {
+      field: 'billingPeriod',
+      headerName: 'Billing Period',
+      minWidth: 200,
+      flex: 1,
+    },
+    { field: 'total', headerName: 'Total', minWidth: 100, flex: 1 },
+    {
+      field: 'setteled',
+      headerName: 'Setteled',
+      editable: true,
+      minWidth: 100,
+      flex: 1,
+    },
   ];
 
   ngOnInit() {
