@@ -127,3 +127,7 @@ button.mat-icon-button {
 .ag-theme-quartz .ag-row .ag-cell {
   @apply p-2;
 }
+
+.invoice-details-btn {
+  @apply text-xs px-4 py-1 border-2 border-slate-300 rounded-sm shadow-lg hover:scale-110 transition duration-300 ease-in-out;
+}

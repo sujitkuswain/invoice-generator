@@ -31,6 +31,9 @@ import { HistoryInvoiceService } from '../../services/history-invoice.service';
   styleUrl: './history-data.component.css',
 })
 export class HistoryDataComponent implements OnInit {
+  viewInvoice(id: any): any {
+    console.log(id);
+  }
   fireStore = inject(Firestore);
   gridOptions: GridOptions | any = {
     domLayout: 'autoHeight',
@@ -44,20 +47,66 @@ export class HistoryDataComponent implements OnInit {
 
   // Column definitions for ag-Grid
   colDefs: ColDef[] = [
-    { field: 'clientName', headerName: 'Client Name', minWidth: 200, flex: 1 },
+    {
+      field: 'clientName',
+      headerName: 'Client Name',
+      minWidth: 200,
+      flex: 1,
+      cellStyle: {
+        display: 'flex',
+        alignItems: 'center',
+      },
+    },
     {
       field: 'billingPeriod',
       headerName: 'Billing Period',
       minWidth: 200,
       flex: 1,
+      cellStyle: {
+        display: 'flex',
+        alignItems: 'center',
+      },
     },
-    { field: 'total', headerName: 'Total', minWidth: 100, flex: 1 },
+    {
+      field: 'total',
+      headerName: 'Total',
+      minWidth: 100,
+      flex: 1,
+      cellStyle: {
+        display: 'flex',
+        alignItems: 'center',
+      },
+    },
     {
       field: 'setteled',
       headerName: 'Setteled',
       editable: true,
       minWidth: 100,
       flex: 1,
+      cellStyle: {
+        display: 'flex',
+        alignItems: 'center',
+      },
+    },
+    // field to show a button or link to show the invoice details
+    {
+      field: 'invoiceDetails',
+      headerName: 'Invoice Details',
+      minWidth: 100,
+      flex: 1,
+      cellRenderer: (params: any) => {
+        const button = document.createElement('button');
+        button.innerText = 'Details';
+        button.classList.add('invoice-details-btn');
+        button.addEventListener('click', () =>
+          this.viewInvoice(params.data.id)
+        );
+        return button;
+      },
+      cellStyle: {
+        display: 'flex',
+        alignItems: 'center',
+      },
     },
   ];
 
