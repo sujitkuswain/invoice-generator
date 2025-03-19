@@ -1,44 +1,45 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
+import { Auth } from '@angular/fire/auth';
+import { Firestore } from '@angular/fire/firestore';
+import { MatButton } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { AgGridAngular } from 'ag-grid-angular';
-import {
-  ColDef,
-  ColumnApi,
-  GridApi,
-  GridOptions,
-  GridReadyEvent,
-} from 'ag-grid-community';
-import {
-  addDoc,
-  collection,
-  deleteDoc,
-  doc,
-  Firestore,
-  getDocs,
-  Timestamp,
-  updateDoc,
-} from '@angular/fire/firestore';
-import { MatButton } from '@angular/material/button';
-import { Auth } from '@angular/fire/auth';
+import { ColDef, GridOptions } from 'ag-grid-community';
 import { Invoice } from '../../models/invoice.model';
 import { HistoryInvoiceService } from '../../services/history-invoice.service';
+import { HistoryDataDetailsComponent } from '../history-data-details/history-data-details.component';
 
 @Component({
   selector: 'app-history-data',
   standalone: true,
-  imports: [MatCardModule, AgGridAngular, MatButton],
+  imports: [
+    MatCardModule,
+    AgGridAngular,
+    MatButton,
+    HistoryDataDetailsComponent,
+  ],
   templateUrl: './history-data.component.html',
   styleUrl: './history-data.component.css',
 })
 export class HistoryDataComponent implements OnInit {
-  viewInvoice(id: any): any {
-    console.log(id);
-  }
+  selectedInvoiceId = signal('');
+
   fireStore = inject(Firestore);
+
   gridOptions: GridOptions | any = {
     domLayout: 'autoHeight',
     responsive: true,
+    rowSelection: 'single', // Allows selecting a single row at a time
+    onRowSelected: (event: {
+      node: { selected: any };
+      data: { id: string };
+    }) => {
+      if (event.node.selected) {
+        this.selectedInvoiceId.set(event.data.id);
+      }
+    },
   };
+
   auth = inject(Auth);
   historyInvoiceService = inject(HistoryInvoiceService);
 
@@ -83,26 +84,6 @@ export class HistoryDataComponent implements OnInit {
       editable: true,
       minWidth: 100,
       flex: 1,
-      cellStyle: {
-        display: 'flex',
-        alignItems: 'center',
-      },
-    },
-    // field to show a button or link to show the invoice details
-    {
-      field: 'invoiceDetails',
-      headerName: 'Invoice Details',
-      minWidth: 100,
-      flex: 1,
-      cellRenderer: (params: any) => {
-        const button = document.createElement('button');
-        button.innerText = 'Details';
-        button.classList.add('invoice-details-btn');
-        button.addEventListener('click', () =>
-          this.viewInvoice(params.data.id)
-        );
-        return button;
-      },
       cellStyle: {
         display: 'flex',
         alignItems: 'center',
