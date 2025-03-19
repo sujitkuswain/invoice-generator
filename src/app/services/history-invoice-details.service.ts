@@ -20,26 +20,28 @@ export class HistoryInvoiceDetailsService {
   clientService = inject(ClientsService);
   constructor() {}
 
-  async get(): Promise<InvoiceDetails[]> {
+  async get(invoicdId: string): Promise<InvoiceDetails[]> {
     try {
       const querySnapshot = await getDocs(
         collection(this.fireStore, 'invoiceDetails')
       );
 
-      return querySnapshot.docs.map((doc) => {
-        const data = doc.data() as InvoiceDetails;
-        return {
-          id: doc.id,
-          invoiceId: data.invoiceId,
-          serviceType: data.serviceType,
-          price: data.price,
-          discount: data.discount,
-          createdBy: data.createdBy,
-          modifiedBy: data.modifiedBy,
-          createdAt: data.createdAt,
-          modifiedAt: data.modifiedAt,
-        };
-      });
+      return querySnapshot.docs
+        .map((doc) => {
+          const data = doc.data() as InvoiceDetails;
+          return {
+            id: doc.id,
+            invoiceId: data.invoiceId,
+            serviceType: data.serviceType,
+            price: data.price,
+            discount: data.discount,
+            createdBy: data.createdBy,
+            modifiedBy: data.modifiedBy,
+            createdAt: data.createdAt,
+            modifiedAt: data.modifiedAt,
+          };
+        })
+        .filter((detail) => detail.invoiceId === invoicdId);
     } catch (error) {
       console.error('Error getting document details: ', error);
       return [];
