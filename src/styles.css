@@ -37,7 +37,7 @@ body {
 }
 
 .main-container {
-  @apply flex justify-center bg-slate-300 px-0 py-4 md:py-16 min-h-screen;
+  @apply mx-auto w-full max-w-6xl mt-20 min-h-screen;
 }
 
 .header-title {
@@ -49,7 +49,7 @@ body {
 }
 
 .header-section {
-  @apply border rounded-md p-8 space-y-8;
+  @apply border rounded-md p-2;
 }
 
 .logo-container {
@@ -60,34 +60,12 @@ body {
   @apply flex flex-col md:flex-row justify-between w-full gap-4;
 }
 
-.client-name,
-.billing-period {
-  @apply flex items-center gap-4 w-full justify-center;
-}
-
-.client-form-field {
-  @apply max-w-md md:w-full;
-}
-
-.scroll-container {
-  @apply w-full overflow-x-auto overflow-auto;
-}
-
-.service-table-container {
-  @apply w-full overflow-x-auto;
-}
-
 .service-table {
   @apply shadow-lg rounded-lg table-auto w-full border border-gray-300;
 }
 
 .service-header,
-.actions-header {
-  @apply p-2 text-xs md:text-sm;
-}
-
-.service-cell,
-.actions-cell {
+.service-cell {
   @apply p-2 text-xs md:text-sm;
 }
 
@@ -100,7 +78,7 @@ body {
 }
 
 .action-buttons {
-  @apply flex justify-center gap-4 mt-8;
+  @apply flex w-full justify-center gap-4 mt-2;
 }
 
 .language-switch {
@@ -122,11 +100,34 @@ button.mat-icon-button {
 .form-container {
   background-color: var(--background-color);
   color: var(--text-color);
-  border-radius: 1rem; /* Matches rounded-xl */
-  @apply flex justify-center items-center p-4 md:p-16 rounded-xl shadow-lg;
+  border-radius: 1rem;
+  @apply flex justify-center items-center p-2 md:p-4 rounded-xl shadow-lg;
 }
 
 .header,
 .footer {
   background-color: var(--background-color);
+}
+
+/* ag-grid */
+.card-container {
+  @apply w-full;
+}
+.history-data-card {
+  @apply text-xs md:text-sm p-2 md:p-4 rounded-xl shadow-lg overflow-x-auto w-full;
+}
+
+.ag-theme-quartz {
+  @apply text-xs md:text-sm h-full w-full;
+}
+
+.ag-theme-quartz .ag-header,
+.ag-theme-quartz .ag-header-cell,
+.ag-theme-quartz .ag-header-cell-label,
+.ag-theme-quartz .ag-row .ag-cell {
+  @apply p-2;
+}
+
+.invoice-details-btn {
+  @apply text-xs px-4 py-1 border-2 border-slate-300 rounded-sm shadow-lg hover:scale-110 transition duration-300 ease-in-out;
 }

@@ -1,5 +1,5 @@
 import { CommonModule, DatePipe } from '@angular/common';
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 import {
   AbstractControl,
   FormArray,
@@ -24,6 +24,9 @@ import { ClientsService } from '../../services/clients.service';
 import { InvoiceService } from '../../services/invoice.service';
 import { LogoComponent } from '../logo/logo.component';
 import { HistoryDataComponent } from '../history-data/history-data.component';
+import { Invoice } from '../../models/invoice.model';
+import { HistoryInvoiceService } from '../../services/history-invoice.service';
+import { MatCardModule } from '@angular/material/card';
 
 @Component({
   selector: 'app-invoice',
@@ -41,6 +44,7 @@ import { HistoryDataComponent } from '../history-data/history-data.component';
     TranslateModule,
     MatTooltipModule,
     HistoryDataComponent,
+    MatCardModule,
   ],
   providers: [DatePipe],
   templateUrl: './invoice.component.html',
@@ -50,6 +54,7 @@ export class InvoiceComponent implements OnInit {
   invoiceForm: FormGroup; // Initialize form group here
 
   clients: Client[] = this.clientsService.clients;
+  historyInvoiceService = inject(HistoryInvoiceService);
 
   displayedColumns: string[] = [
     'service',
@@ -146,6 +151,7 @@ export class InvoiceComponent implements OnInit {
       console.log(this.invoiceForm);
       const formData = this.invoiceForm.value;
       this.invoiceService.generateCustomPDF(formData);
+      this.saveInvoice();
       // Enable the 'total' and 'finalPrice' field to include it in the form data
       this.invoiceForm.get('total')?.disable();
       this.services.controls.forEach((control) => {
@@ -154,6 +160,18 @@ export class InvoiceComponent implements OnInit {
     } else {
       console.log('Form is invalid!');
     }
+  }
+
+  saveInvoice() {
+    const invoice: Invoice = {
+      clientName: this.invoiceForm.get('clientName')?.value,
+      billingPeriod: this.invoiceForm.get('billingPeriod')?.value,
+      total: this.invoiceForm.get('total')?.value,
+      setteled: false,
+    };
+
+    console.log(invoice);
+    this.historyInvoiceService.create([invoice]);
   }
 
   get services(): FormArray {

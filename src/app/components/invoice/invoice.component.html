@@ -1,114 +1,101 @@
-<section id="main-card" class="main-card mt-8">
-  <div class="form-container">
-    <div class="flex flex-col space-y-6 items-center relative">
-      <h1 class="header-title">{{'CORE.HEADER' | translate}}</h1>
-
+<mat-card>
+  <mat-card-content>
+    <div class="form-container">
       <!-- Form -->
       <form [formGroup]="invoiceForm" (ngSubmit)="onSubmit()">
         <!-- Header Section -->
         <section id="header" class="header-section">
-          <!-- Logo
-          <div class="logo-container">
-            <app-logo></app-logo>
-          </div> -->
 
           <!-- Client Details -->
           <div id="client-details" class="client-details">
             <!-- Client Name -->
-            <div class="client-name">
-              <mat-form-field class="client-form-field">
-                <mat-label>{{'FORM.CLIENT NAME' | translate}}</mat-label>
-                <mat-select formControlName="clientName" required>
-                  @for (client of clients; track client) {
-                  <mat-option [value]="client.value">{{ client.viewValue }}</mat-option>
-                  }
-                </mat-select>
-              </mat-form-field>
-            </div>
+            <mat-form-field class="w-full">
+              <mat-label>{{'FORM.CLIENT NAME' | translate}}</mat-label>
+              <mat-select formControlName="clientName" required>
+                @for (client of clients; track client) {
+                <mat-option [value]="client.value">{{ client.viewValue }}</mat-option>
+                }
+              </mat-select>
+            </mat-form-field>
 
             <!-- Billing Period -->
-            <div class="billing-period">
-              <mat-form-field class="client-form-field">
-                <mat-label>{{'FORM.BILLING PERIOD' | translate}}</mat-label>
-                <input matInput type="text" formControlName="billingPeriod" required />
-              </mat-form-field>
-            </div>
+            <mat-form-field class="w-full">
+              <mat-label>{{'FORM.BILLING PERIOD' | translate}}</mat-label>
+              <input matInput type="text" formControlName="billingPeriod" required />
+            </mat-form-field>
           </div>
         </section>
 
         <!-- Service List -->
-        <section id="service-list" formArrayName="services" class="scroll-container">
-          <div class="service-table-container">
-            <table mat-table [dataSource]="dataSource" class="service-table">
-              <!-- Service Column -->
-              <ng-container matColumnDef="service">
-                <th mat-header-cell *matHeaderCellDef class="service-header">{{'FORM.SERVICE' | translate}}</th>
-                <td mat-cell *matCellDef="let row; let i = index" [formGroupName]="i" class="service-cell">
-                  <input matInput [placeholder]="'FORM.SERVICE' | translate" formControlName="service" class="w-full" />
-                </td>
-              </ng-container>
+        <section id="service-list" formArrayName="services">
+          <table mat-table [dataSource]="dataSource" class="service-table">
+            <!-- Service Column -->
+            <ng-container matColumnDef="service">
+              <th mat-header-cell *matHeaderCellDef class="service-header">{{'FORM.SERVICE' | translate}}</th>
+              <td mat-cell *matCellDef="let row; let i = index" [formGroupName]="i" class="service-cell">
+                <input matInput [placeholder]="'FORM.SERVICE' | translate" formControlName="service" class="w-full" />
+              </td>
+            </ng-container>
 
-              <!-- Price Column -->
-              <ng-container matColumnDef="price">
-                <th mat-header-cell *matHeaderCellDef class="service-header">{{'FORM.PRICE' | translate}}</th>
-                <td mat-cell *matCellDef="let row; let i = index" [formGroupName]="i" class="service-cell">
-                  <input matInput type="number" [placeholder]="'FORM.PRICE' | translate" formControlName="price"
-                    class="w-full" />
-                </td>
-              </ng-container>
+            <!-- Price Column -->
+            <ng-container matColumnDef="price">
+              <th mat-header-cell *matHeaderCellDef class="service-header">{{'FORM.PRICE' | translate}}</th>
+              <td mat-cell *matCellDef="let row; let i = index" [formGroupName]="i" class="service-cell">
+                <input matInput type="number" [placeholder]="'FORM.PRICE' | translate" formControlName="price"
+                  class="w-full" />
+              </td>
+            </ng-container>
 
-              <!-- Discount Column -->
-              <ng-container matColumnDef="discount">
-                <th mat-header-cell *matHeaderCellDef class="service-header">{{'FORM.DISCOUNT PERCENT' | translate}}
-                </th>
-                <td mat-cell *matCellDef="let row; let i = index" [formGroupName]="i" class="service-cell">
-                  <input matInput type="number" [placeholder]="'FORM.DISCOUNT PERCENT' | translate"
-                    formControlName="discount" class="w-full" />
-                </td>
-              </ng-container>
+            <!-- Discount Column -->
+            <ng-container matColumnDef="discount">
+              <th mat-header-cell *matHeaderCellDef class="service-header">{{'FORM.DISCOUNT PERCENT' | translate}}
+              </th>
+              <td mat-cell *matCellDef="let row; let i = index" [formGroupName]="i" class="service-cell">
+                <input matInput type="number" [placeholder]="'FORM.DISCOUNT PERCENT' | translate"
+                  formControlName="discount" class="w-full" />
+              </td>
+            </ng-container>
 
-              <!-- Final Price Column -->
-              <ng-container matColumnDef="finalPrice">
-                <th mat-header-cell *matHeaderCellDef class="service-header">{{'FORM.FINAL PRICE' | translate}}</th>
-                <td mat-cell *matCellDef="let row; let i = index" [formGroupName]="i" class="service-cell">
-                  <input matInput type="number" [placeholder]="'FORM.FINAL PRICE' | translate"
-                    formControlName="finalPrice" class="w-full" readonly />
-                </td>
-              </ng-container>
+            <!-- Final Price Column -->
+            <ng-container matColumnDef="finalPrice">
+              <th mat-header-cell *matHeaderCellDef class="service-header">{{'FORM.FINAL PRICE' | translate}}</th>
+              <td mat-cell *matCellDef="let row; let i = index" [formGroupName]="i" class="service-cell">
+                <input matInput type="number" [placeholder]="'FORM.FINAL PRICE' | translate"
+                  formControlName="finalPrice" class="w-full" readonly />
+              </td>
+            </ng-container>
 
-              <!-- Actions Column -->
-              <ng-container matColumnDef="actions">
-                <th mat-header-cell *matHeaderCellDef class="actions-header">{{'FORM.ACTIONS' | translate}}</th>
-                <td mat-cell *matCellDef="let row; let i = index" class="actions-cell">
-                  <button mat-icon-button color="warn" (click)="deleteRow(i)">
-                    <mat-icon>delete</mat-icon>
-                  </button>
-                </td>
-              </ng-container>
+            <!-- Actions Column -->
+            <ng-container matColumnDef="actions">
+              <th mat-header-cell *matHeaderCellDef class="service-header">{{'FORM.ACTIONS' | translate}}</th>
+              <td mat-cell *matCellDef="let row; let i = index" class="service-cell">
+                <button mat-icon-button color="warn" (click)="deleteRow(i)">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </td>
+            </ng-container>
 
-              <!-- Header and Row -->
-              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-            </table>
-          </div>
+            <!-- Header and Row -->
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
 
           <!-- Total Section -->
           <div class="total-section">
             <p class="total-text">{{'FORM.TOTAL' | translate}}: ₹{{ invoiceForm.get('total')?.value }}</p>
           </div>
         </section>
-
-        <!-- Action Buttons -->
-        <div class="action-buttons">
-          <button mat-raised-button color="primary" type="button" (click)="addNewService()">{{'FORM.ADD SERVICE' |
-            translate}}</button>
-          <button mat-raised-button color="accent" type="submit" [disabled]="!invoiceForm.valid">{{'FORM.DOWNLOAD' |
-            translate}}</button>
-        </div>
       </form>
     </div>
-  </div>
-</section>
-
-<!-- history information -->
-<app-history-data></app-history-data>
+  </mat-card-content>
+  <mat-card-actions>
+    <!-- Action Buttons -->
+    <div class="action-buttons">
+      <button mat-raised-button color="primary" type="button" (click)="addNewService()">{{'FORM.ADD SERVICE' |
+        translate}}</button>
+      <button mat-raised-button color="accent" type="submit" [disabled]="!invoiceForm.valid">{{'FORM.DOWNLOAD'
+        |
+        translate}}</button>
+    </div>
+  </mat-card-actions>
+</mat-card>

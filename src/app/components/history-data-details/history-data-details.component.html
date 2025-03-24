@@ -1,0 +1,10 @@
+<mat-card appearance="outlined" class="history-data-card">
+  <mat-card-content>
+    <!-- ag-Grid to display Firestore data -->
+    <ag-grid-angular [columnDefs]="colDefs" [rowData]="rowData()" class="ag-theme-quartz" [gridOptions]="gridOptions">
+    </ag-grid-angular>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-raised-button color="primary" class="mx-auto" (click)="save()">Save</button>
+  </mat-card-actions>
+</mat-card>
