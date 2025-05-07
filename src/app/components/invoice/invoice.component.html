@@ -2,7 +2,7 @@
   <mat-card-content>
     <div class="form-container">
       <!-- Form -->
-      <form [formGroup]="invoiceForm" (ngSubmit)="onSubmit()">
+      <form [formGroup]="invoiceForm" (ngSubmit)="onSubmit()" id="invoice-form">
         <!-- Header Section -->
         <section id="header" class="header-section">
 
@@ -93,7 +93,8 @@
     <div class="action-buttons">
       <button mat-raised-button color="primary" type="button" (click)="addNewService()">{{'FORM.ADD SERVICE' |
         translate}}</button>
-      <button mat-raised-button color="accent" type="submit" [disabled]="!invoiceForm.valid">{{'FORM.DOWNLOAD'
+      <button mat-raised-button color="accent" type="submit" form="invoice-form"
+        [disabled]="!invoiceForm.valid">{{'FORM.DOWNLOAD'
         |
         translate}}</button>
     </div>
